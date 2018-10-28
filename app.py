@@ -20,8 +20,8 @@ starterbot_id = None
 
 # constants
 RTM_READ_DELAY = 1 # 1 second delay between reading from RTM
-EXAMPLE_COMMAND = "do"
 MENTION_REGEX = "^<@(|[WU].+?)>(.*)"
+EXAMPLE_COMMAND = "help"
 
 def to_cents(amount: Decimal, divisibility: int) -> int:
     return int(amount * Decimal('10')**divisibility)
@@ -65,9 +65,16 @@ def handle_command(command, channel, user):
 
     # Finds and executes the given command, filling in response
     response = None
-    # This is where you start to implement more commands!
-    if command.startswith(EXAMPLE_COMMAND):
-        response = "Sure...write some more code then I can do that!"
+
+    command = command.lower()
+
+    if command.startswith('hi') or command.startswith('help'):
+        response =  """
+Hi! Here's how to use me:\n
+```Tipping:\n
+  @tipbot tip @bob 100 XLM\n\n
+Wallet:\n
+  @tipbot balance```"""
 
     elif command.startswith('balance'):
         try:
