@@ -120,7 +120,7 @@ Wallet:\n
                 recipient=recipient
             )
 
-            response = "Ok, I've gone ahead and sent {} {} to <@{}>.".format(amount, currency, user)
+            response = "Ok, I've gone ahead and sent {} {} to <@{}>.".format(amount, currency, recipient)
 
         except Exception as e:
             logger.exception(e)
