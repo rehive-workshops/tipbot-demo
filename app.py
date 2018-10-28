@@ -66,9 +66,9 @@ def handle_command(command, channel, user):
     # Finds and executes the given command, filling in response
     response = None
 
-    command = command.lower()
+    command_lower = command.lower()
 
-    if command.startswith('hi') or command.startswith('help'):
+    if command_lower.startswith('hi') or command_lower.startswith('help'):
         response =  """
 Hi! Here's how to use me:\n
 ```Tipping:\n
@@ -76,7 +76,7 @@ Hi! Here's how to use me:\n
 Wallet:\n
   @tipbot balance```"""
 
-    elif command.startswith('balance'):
+    elif command_lower.startswith('balance'):
         try:
             r = rehive.admin.accounts.get(filters={"user":user, "primary": True})
             reference = r[0]['reference']
@@ -95,9 +95,9 @@ Wallet:\n
             logger.exception(e)
             response = "Oops something went wrong, I wasn't able to look up you balance"
 
-    elif command.startswith('give') or command.startswith('send') or command.startswith('tip'):
+    elif command_lower.startswith('give') or command_lower.startswith('send') or command_lower.startswith('tip'):
         try:
-            match = re.search('<@(|[WU].+?)>\s*([0-9]{1,9}(?:\.[0-9]{0,16})?)\s*(xlm|XLM)', command)
+            match = re.search('<@(|[WU].+?)>\s*([0-9]{1,9}(?:\s.[0-9]{0,16})?)\s*(xlm|XLM)', command)
             recipient = match.group(1)
             amount = match.group(2)
             currency = match.group(3)
